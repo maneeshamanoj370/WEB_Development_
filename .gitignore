@@ -1,0 +1,21 @@
+# .gitignore
+
+# Python specific files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment (Windows and Linux paths included for safety)
+venv/
+.venv/
+*/venv/
+*/.venv/
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
