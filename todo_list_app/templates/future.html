@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="{{ url_for('index') }}" class="future-link">← Back to Today</a>
+        </nav>
+        
+        <h1>Upcoming 10 Days To-Do List</h1>
+
+        {% if future_tasks %}
+            {% for date_str, data in future_tasks.items() %}
+                <div class="future-day-card">
+                    <h3 class="card-date">{{ data.display_date }}</h3>
+                    <div class="day-tasks">
+                        {% for task in data.tasks %}
+                            <div class="task-item">
+                                <span class="task-time">{{ task.time }}</span>
+                                <span class="task-description">{{ task.task }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-schedule">No tasks scheduled for the next 10 days.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
