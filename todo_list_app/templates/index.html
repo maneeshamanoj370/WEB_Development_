@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="{{ url_for('future') }}" class="future-link">View Upcoming 10 Days →</a>
+        </nav>
+        
+        <h1>Today's To-Do List</h1>
+        <h2 class="date-header">{{ datetime.strptime(today_str, '%Y-%m-%d').strftime('%A, %B %d, %Y') }}</h2>
+
+        <form method="POST" action="/" class="add-task-form">
+            <input type="date" name="date" value="{{ today_str }}" required>
+            <input type="time" name="time" value="09:00" required>
+            <input type="text" name="task" placeholder="Enter new task description" required>
+            <button type="submit">Add To-Do List</button>
+        </form>
+
+        <div class="task-list">
+            {% if today_tasks %}
+                {% for task in today_tasks %}
+                    <div class="task-item">
+                        <span class="task-time">{{ task.time }}</span>
+                        <span class="task-description">{{ task.task }}</span>
+                        <a href="{{ url_for('index', delete_id=task.id, date=today_str) }}" class="delete-btn">Delete</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-schedule">Today you don't have anything scheduled yet!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
